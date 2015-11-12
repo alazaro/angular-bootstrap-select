@@ -204,6 +204,15 @@ function selectpickerDirective($parse, $timeout) {
         scope.$watch(attrs.ngModel, refresh, true);
       }
 
+      if (attrs.ngOptions) {
+        scope.$watch(function() {
+          var m = attrs.ngOptions.match(/.* in ([\$_\-a-zA-Z]+)?/);
+          if (m && m.length > 0) {
+            return scope[m[1]];
+          }
+        }, refresh, true);
+      }
+
       if (attrs.ngDisabled) {
         scope.$watch(attrs.ngDisabled, refresh, true);
       }
